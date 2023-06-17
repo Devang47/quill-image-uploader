@@ -135,8 +135,8 @@ class ImageUploader {
         }
 
         this.options.upload(file).then(
-            (imageUrl) => {
-                this.insertToEditor(imageUrl);
+            (imageUrl, slug) => {
+                this.insertToEditor(imageUrl, slug);
             },
             (error) => {
                 isUploadReject = true;
@@ -162,7 +162,7 @@ class ImageUploader {
         );
     }
 
-    insertToEditor(url) {
+    insertToEditor(url, slug) {
         const range = this.range;        
 
         const lengthToDelete = this.calculatePlaceholderInsertLength();        
@@ -170,7 +170,7 @@ class ImageUploader {
         // Delete the placeholder image
         this.quill.deleteText(range.index, lengthToDelete, "user");
         // Insert the server saved image
-        this.quill.insertEmbed(range.index, "image", `${url}`, "user");
+        this.quill.insertEmbed(range.index, "imageSlug", {url, slug: slug} , "user");
 
         range.index++;
         this.quill.setSelection(range, "user");
