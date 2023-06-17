@@ -135,7 +135,7 @@ class ImageUploader {
         }
 
         this.options.upload(file).then(
-            (imageUrl, slug) => {
+            ({imageUrl, slug}) => {
                 this.insertToEditor(imageUrl, slug);
             },
             (error) => {
