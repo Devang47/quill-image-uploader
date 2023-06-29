@@ -23,9 +23,11 @@ var quill = new Quill("#editor", {
 
         return new Promise((resolve, reject) => {
           setTimeout(() => {
-            resolve(
-              "https://images.unsplash.com/photo-1686903430777-279ba0f25e7f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1675&q=80"
-            );
+            resolve({
+              value:
+                "https://images.unsplash.com/photo-1686025479688-25042cfaa735?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2787&q=80",
+              slug: "M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA",
+            });
           }, 1500);
 
           //   fileReader.addEventListener(
@@ -52,23 +54,14 @@ var quill = new Quill("#editor", {
 });
 
 quill.on("text-change", function (delta, oldDelta, source) {
-  if (source == "api") {
-    console.log("An API call triggered this change.");
-  } else if (source == "user") {
-    console.log("A user action triggered this change.");
-  }
-  console.log(oldDelta, delta);
+  console.log(quill.getContents());
 });
 
 quill.on("selection-change", function (range, oldRange, source) {
   if (range) {
     if (range.length == 0) {
-      console.log("User cursor is on", range.index);
     } else {
       var text = quill.getText(range.index, range.length);
-      console.log("User has highlighted", text);
     }
-  } else {
-    console.log("Cursor not in the editor");
   }
 });

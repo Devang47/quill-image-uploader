@@ -5,11 +5,15 @@
 
 .image-uploading img {
   max-width: 98% !important;
+  filter: none;
+  opacity: 1;
+}
+.image-uploading[data-slug="temporary"] img {
   filter: blur(5px);
   opacity: 0.3;
 }
 
-.image-uploading::before {
+.image-uploading[data-slug="temporary"]::before {
   content: "";
   box-sizing: border-box;
   position: absolute;

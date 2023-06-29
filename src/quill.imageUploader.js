@@ -156,24 +156,19 @@ class ImageUploader {
                 
         this.placeholderDelta = this.quill.insertEmbed(
             range.index,
-            LoadingImage.blotName,
-            `${url}`,
+            "image",
+            {url, slug: "temporary"},
             "user"
         );
     }
 
     insertToEditor(url, slug) {
-        const range = this.range;        
+        this.removeBase64Image();
 
-        const lengthToDelete = this.calculatePlaceholderInsertLength();        
+        this.quill.insertEmbed(this.range.index, "image", { url, slug }, "user");
         
-        // Delete the placeholder image
-        this.quill.deleteText(range.index, lengthToDelete, "user");
-        // Insert the server saved image
-        this.quill.insertEmbed(range.index, "imageSlug", {url, slug: slug} , "user");
-
-        range.index++;
-        this.quill.setSelection(range, "user");
+        this.range.index++;
+        this.quill.setSelection(this.range, "user");
     }
 
     // The length of the insert delta from insertBase64Image can vary depending on what part of the line the insert occurs
@@ -189,7 +184,6 @@ class ImageUploader {
     removeBase64Image() {        
         const range = this.range;
         const lengthToDelete = this.calculatePlaceholderInsertLength();
-
         this.quill.deleteText(range.index, lengthToDelete, "user");
     }
 }

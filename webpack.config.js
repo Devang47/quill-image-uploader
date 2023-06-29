@@ -12,6 +12,7 @@ module.exports = [{
         path: path.resolve(__dirname, "dist"),
     },
     devServer: {
+        port: 5173,
         //contentBase: './src',
         https: true,
     },
