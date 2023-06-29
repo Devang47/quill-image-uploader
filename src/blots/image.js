@@ -21,6 +21,7 @@ class LoadingImage extends Embed {
   }
   static value(domNode) {
     return {
+      url: domNode.getAttribute("data-src"),
       image: domNode.getAttribute("data-src"),
       slug: domNode.getAttribute("data-slug"),
     };
